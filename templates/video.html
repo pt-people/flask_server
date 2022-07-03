@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+
+</head>
+<body>
+
+<video id="video" onended="this.src=''"></video>
+
+<button onclick="media_open()">开启</button>
+<button onclick="shutdown()">关闭</button>
+<button onclick="upload()">上传</button>
+<script src="static/js/jquery-3.6.0.min.js"></script>
+<script>
+    // 设备限制
+    constraints = {video: true}
+    var stream = undefined
+    var video = document.querySelector("video")
+
+    function media_open() {
+        // 获取用户媒体设备
+        navigator.mediaDevices.getUserMedia(constraints).then(function (s) {
+            // 获取成功e
+            video.srcObject = s;
+            video.onloadedmetadata = function (e) {
+                video.play()
+            }
+            stream = s
+        }).catch(function (err) {
+            // 获取失败
+            document.write("设备打开失败")
+        })
+    }
+
+    function shutdown() {
+        stream.getTracks().forEach(track => track.stop());
+    }
+</script>
+</body>
+</html>

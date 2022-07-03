@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>显示</title>
+</head>
+<body>
+<video src=""></video>
+<a href="/shutdown">返回</a>
+
+
+<script src="../static/js/jquery-3.6.0.min.js"></script>
+<script>
+    video = document.querySelector("video")
+
+    while(1){
+    $.ajax({
+        url: "get_stream",
+        type: "POST",
+        dataType: MediaStream,
+        success: function(s){
+            video.srcObject=s;
+        }
+    })
+    }
+
+</script>
+
+</body>
+</html>
